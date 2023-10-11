@@ -22,7 +22,7 @@ IDE: IntelliJ IDEA
 1. Clone o repositório para a sua IDE
    
 ```bash
-git clone https://github.com/eurenaneu/food-api
+git clone https://github.com/eurenaneu/food-api.git
 ```
 
 2. Utilize o Maven para instalar as dependências utilizadas no projeto
