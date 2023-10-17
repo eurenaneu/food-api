@@ -1,80 +1,62 @@
 package com.example.food.controller;
 
-import com.example.food.model.Food;
-import com.example.food.model.FoodRepository;
-import com.example.food.model.FoodRequestDTO;
+import com.example.food.domain.Food;
+import com.example.food.dto.FoodRequestDTO;
+import com.example.food.service.FoodService;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
+import java.util.List;
 
 @RestController
 @RequestMapping("/food")
 public class FoodController {
     @Autowired
-    private FoodRepository repository;
+    private FoodService foodService;
 
-    private static final String allowedOrigins = "http://localhost:5173";
-
-    @CrossOrigin(origins = allowedOrigins, allowedHeaders = "*")
     @GetMapping
-    public ResponseEntity getAllFoods() {
-        var allFoods = repository.findAllByActiveTrue();
-        return ResponseEntity.ok(allFoods);
+    public ResponseEntity<List<Food>> getAllFoods() {
+        List<Food> allFoods = this.foodService.getAllFoods();
+
+        return new ResponseEntity<>(allFoods, HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = allowedOrigins, allowedHeaders = "*")
     @GetMapping("/{id}")
-    public ResponseEntity getFoodById(@PathVariable int id) {
-        Optional<Food> optionalFood = repository.findById(id);
-        if(optionalFood.isPresent()) {
-            Food newFood = optionalFood.get();
-            return ResponseEntity.ok(newFood);
-        } else {
-            throw new EntityNotFoundException();
-        }
+    public ResponseEntity<Food> getFoodById(@PathVariable int id) {
+        Food newFood = this.foodService.getFoodById(id);
+
+        return new ResponseEntity<>(newFood, HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = allowedOrigins, allowedHeaders = "*")
     @PostMapping
-    public ResponseEntity registerFood(@RequestBody @Validated FoodRequestDTO data){
-        Food newFood = new Food(data);
-        repository.save(newFood);
+    public ResponseEntity<Food> registerFood(@RequestBody @Validated FoodRequestDTO data) {
+        Food newFood = this.foodService.registerFood(data);
 
-        return ResponseEntity.ok().build();
+        return new ResponseEntity<>(newFood, HttpStatus.CREATED);
     }
 
-    @CrossOrigin(origins = allowedOrigins, allowedHeaders = "*")
-    @PutMapping
-    @Transactional
-    public ResponseEntity updateFood(@RequestBody @Validated FoodRequestDTO data){
-        Optional<Food> optionalFood = repository.findById(data.id());
-        if(optionalFood.isPresent()) {
-            Food food = optionalFood.get();
-            food.setNome(data.nome());
-            food.setValor(data.valor());
-            return ResponseEntity.ok(food);
-        } else {
-            throw new EntityNotFoundException();
-        }
+    @PutMapping("/{id}")
+    public ResponseEntity<Food> updateFood(@PathVariable int id, @RequestBody @Validated FoodRequestDTO data) throws EntityNotFoundException {
+        Food newFood = this.foodService.updateFood(id, data);
 
+        return new ResponseEntity<>(newFood, HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = allowedOrigins, allowedHeaders = "*")
+    @PatchMapping("/{id}")
+    public ResponseEntity<Food> patchFood(@PathVariable int id, @RequestBody @Validated FoodRequestDTO data) throws EntityNotFoundException {
+        Food updatedFood = this.foodService.patchFood(id, data);
+
+        return new ResponseEntity<>(updatedFood, HttpStatus.OK);
+    }
+
     @DeleteMapping("/{id}")
-    @Transactional
-    public ResponseEntity deleteFood(@PathVariable int id) {
-        Optional<Food> optionalFood = repository.findById(id);
-        if(optionalFood.isPresent()){
-            Food food = optionalFood.get();
-            food.setActive(false);
-            return ResponseEntity.noContent().build();
-        } else {
-            throw new EntityNotFoundException();
-        }
+    public ResponseEntity<Void> deleteFood(@PathVariable int id) throws EntityNotFoundException {
+        this.foodService.deleteFood(id);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
