@@ -1,5 +1,6 @@
-package com.example.food.model;
+package com.example.food.repository;
 
+import com.example.food.domain.Food;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
