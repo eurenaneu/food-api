@@ -1,5 +1,6 @@
-package com.example.food.model;
+package com.example.food.domain;
 
+import com.example.food.dto.FoodRequestDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
