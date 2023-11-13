@@ -25,6 +25,13 @@ public class FoodController {
         return new ResponseEntity<>(allFoods, HttpStatus.OK);
     }
 
+    @GetMapping("/active")
+    public ResponseEntity<List<Food>> getAllActiveFoods() {
+        List<Food> allFoods = this.foodService.getAllActiveFoods();
+
+        return new ResponseEntity<>(allFoods, HttpStatus.OK);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Food> getFoodById(@PathVariable int id) {
         Food newFood = this.foodService.getFoodById(id);
