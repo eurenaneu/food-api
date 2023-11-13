@@ -35,11 +35,15 @@ git clone https://github.com/eurenaneu/food-api.git
 ```markdown
 GET /food - Retorna todas as comidas armazenadas.
 
+GET /food/active - Retorna todas as comidas ativas armazenadas.
+
 GET /food/{id} - Retorna a comida associada ao ID.
 
 POST /food - Cadastra uma comida nova.
 
-PUT /food - Atualiza as informações da comida.
+PUT /food/{id} - Atualiza as informações da comida.
 
-DEL /food/{id} - Atualiza o status da comida para INATIVA.
+PATCH /food/{id} - Atualiza parcialmente as informações da comida.
+
+DELETE /food/{id} - Atualiza o status da comida para INATIVA.
 ```
