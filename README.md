@@ -4,7 +4,7 @@
 
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
 ![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white)
-![Postgres](https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white)
 
 Criada para ser utilizada com um projeto front-end feito em React.
 
@@ -12,6 +12,7 @@ Criada para ser utilizada com um projeto front-end feito em React.
 
 - Java
 - Spring Boot
+- JUnit
 - Flyway Migrations
 - MySQL
 
