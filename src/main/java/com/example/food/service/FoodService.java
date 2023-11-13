@@ -15,8 +15,12 @@ public class FoodService {
     @Autowired
     private FoodRepository repository;
 
-    public List<Food> getAllFoods() {
+    public List<Food> getAllActiveFoods() {
         return repository.findAllByActiveTrue();
+    }
+
+    public List<Food> getAllFoods() {
+        return repository.findAll();
     }
 
     public Food getFoodById(int id) {
@@ -59,6 +63,12 @@ public class FoodService {
             if (data.valor() != null) {
                 food.setValor(data.valor());
             }
+
+            if (data.active() != null) {
+                food.setActive(data.active());
+            }
+
+            System.out.println(data.active());
 
             repository.save(food);
             return food;
