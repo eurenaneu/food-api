@@ -34,7 +34,7 @@ class FoodServiceTest {
     @Test
     @DisplayName("Should create food succesfully when everything is okay")
     void registerFood() {
-        FoodRequestDTO data = new FoodRequestDTO(1, "Cookie", 125.90); // cria dados da comida teste
+        FoodRequestDTO data = new FoodRequestDTO(1, "Cookie", 125.90, true); // cria dados da comida teste
         Food expectedFood = new Food(data); // cria comida teste com os dados
 
         when(repository.save(expectedFood)).thenReturn(expectedFood); // testa se o retorno corresponde com o objeto salvo
@@ -49,7 +49,7 @@ class FoodServiceTest {
     @Test
     @DisplayName("Should update food with the correct data when entity exists")
     void updateFoodCase1() {
-        FoodRequestDTO data = new FoodRequestDTO(1, "Feijão", 30.00);
+        FoodRequestDTO data = new FoodRequestDTO(1, "Feijão", 30.00, true);
         Food oldFood = new Food(1, "Cookie", 125.90, true);
 
         when(repository.findById(1)).thenReturn(Optional.of(oldFood));
@@ -64,7 +64,7 @@ class FoodServiceTest {
     @Test
     @DisplayName("Should throw exception when updating food")
     void updateFoodCase2() {
-        FoodRequestDTO data = new FoodRequestDTO(1, "Feijão", 30.00);
+        FoodRequestDTO data = new FoodRequestDTO(1, "Feijão", 30.00, true);
         Food oldFood = new Food(1, "Cookie", 125.90, true);
 
         when(repository.findById(oldFood.getId())).thenReturn(Optional.empty());
@@ -77,7 +77,7 @@ class FoodServiceTest {
     @Test
     @DisplayName("Should partially update food with the correct data when entity exists")
     void patchFoodCase1() {
-        FoodRequestDTO data = new FoodRequestDTO(null, null, 999.90);
+        FoodRequestDTO data = new FoodRequestDTO(null, null, 999.90, null);
         Food oldFood = new Food(1, "Cookie", 125.90, true);
 
         when(repository.findById(1)).thenReturn(Optional.of(oldFood));
@@ -108,7 +108,7 @@ class FoodServiceTest {
         Food expectedFood = this.foodService.deleteFood(1);
 
         verify(repository, times(1)).save(any(Food.class));
-        assertEquals(oldFood.isActive(), expectedFood.isActive());
+        assertEquals(oldFood.getActive(), expectedFood.getActive());
     }
 
     @Test
