@@ -17,7 +17,7 @@ public class Food {
     private Integer id;
     private String nome;
     private Double valor;
-    private boolean active;
+    private Boolean active;
 
     public Food(FoodRequestDTO foodRequestDTO) {
         this.nome = foodRequestDTO.nome();
