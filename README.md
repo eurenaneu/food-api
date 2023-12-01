@@ -55,7 +55,7 @@ DELETE /food/{id} - Atualiza o status da comida para INATIVA (Exclusão lógica)
 <h1 name="english">Food API</h1>
 
 [Você também pode ler isto em Português! :)](#portuguese)
-> API RESTful designed for restaurant menu management.
+> RESTful API designed for restaurant menu management.
 
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
 ![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white)
