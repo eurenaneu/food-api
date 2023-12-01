@@ -49,6 +49,7 @@ PATCH /food/{id} - Atualiza parcialmente as informações da comida.
 DELETE /food/{id} - Atualiza o status da comida para INATIVA (Exclusão lógica).
 ```
 
+<br>
 <hr>
 
 <h1 name="english">Food API</h1>
