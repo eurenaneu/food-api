@@ -68,8 +68,6 @@ public class FoodService {
                 food.setActive(data.active());
             }
 
-            System.out.println(data.active());
-
             repository.save(food);
             return food;
         } else {
