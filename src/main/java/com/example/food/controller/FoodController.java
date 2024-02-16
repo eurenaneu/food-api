@@ -19,24 +19,17 @@ public class FoodController {
     private FoodService foodService;
 
     @GetMapping
-    public ResponseEntity<List<Food>> getAllFoods() {
-        List<Food> allFoods = this.foodService.getAllFoods();
+    public ResponseEntity<List<Food>> getAllFoods(@RequestParam(value = "active", defaultValue = "true") @Validated boolean active) {
+        if (active) {
+            return new ResponseEntity<>(this.foodService.getAllActiveFoods(), HttpStatus.OK);
+        }
 
-        return new ResponseEntity<>(allFoods, HttpStatus.OK);
-    }
-
-    @GetMapping("/active")
-    public ResponseEntity<List<Food>> getAllActiveFoods() {
-        List<Food> allFoods = this.foodService.getAllActiveFoods();
-
-        return new ResponseEntity<>(allFoods, HttpStatus.OK);
+        return new ResponseEntity<>(this.foodService.getAllFoods(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Food> getFoodById(@PathVariable int id) {
-        Food newFood = this.foodService.getFoodById(id);
-
-        return new ResponseEntity<>(newFood, HttpStatus.OK);
+    public Food getFoodById(@PathVariable int id) {
+        return this.foodService.getFoodById(id);
     }
 
     @PostMapping
@@ -47,17 +40,13 @@ public class FoodController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Food> updateFood(@PathVariable int id, @RequestBody @Validated FoodRequestDTO data) throws EntityNotFoundException {
-        Food newFood = this.foodService.updateFood(id, data);
-
-        return new ResponseEntity<>(newFood, HttpStatus.OK);
+    public Food updateFood(@PathVariable int id, @RequestBody @Validated FoodRequestDTO data) throws EntityNotFoundException {
+        return this.foodService.updateFood(id, data);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Food> patchFood(@PathVariable int id, @RequestBody @Validated FoodRequestDTO data) throws EntityNotFoundException {
-        Food updatedFood = this.foodService.patchFood(id, data);
-
-        return new ResponseEntity<>(updatedFood, HttpStatus.OK);
+    public Food patchFood(@PathVariable int id, @RequestBody @Validated FoodRequestDTO data) throws EntityNotFoundException {
+        return this.foodService.patchFood(id, data);
     }
 
     @DeleteMapping("/{id}")
